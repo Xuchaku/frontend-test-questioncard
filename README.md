@@ -16,53 +16,65 @@
 ## Псевдокод логики
 
 - выбор ответа
+
+```
   (option)=>{
   if(question.multiply){
-  if(answers.includes(option)){
-  setAnswer(answers.filter(item => item !== option)) //снятие чекбокса уже на выставленном варианте
+    if(answers.includes(option)){
+      setAnswer(answers.filter(item => item !== option)) //снятие чекбокса уже на выставленном варианте
+    }
+    else{
+      setAnswer(prev => [...prev, option]) // добавление варианта овтета в список
+    }
+    }
+    else{
+      setAnswer(option) // если у нас без чекбоксов, то значит заносим лилшь 1 ответ
+    }
   }
-  else{
-  setAnswer(prev => [...prev, option]) // добавление варианта овтета в список
-  }
-  }
-  else{
-  setAnswer(option) // если у нас без чекбоксов, то значит заносим лилшь 1 ответ
-  }
-  }
+```
+
 - check answer
+
+```
   res = await fetch(checkanswer?answer=answer);
   if(res.ok){
-  setShowCorrectAnswer(true)
+    setShowCorrectAnswer(true)
   }
   else{
-  setShowErrorAnswer(false)
+    setShowErrorAnswer(false)
   }
+```
 
 - показ explanation
 
+```
   if(question.ended){ // если вопрос уже пройдет то получаем объяснение на вопрос и показываем
-  res = await fetch(question.id);
-  setShowExplanation(res.explanation)
+    res = await fetch(question.id);
+    setShowExplanation(res.explanation)
   }
+```
 
 - disabled состояния кнопок
+
+```
   if(question.loading){ // блочим кнопку далее, если вопрос подгружается
-  setNextDisabled(true)
+    setNextDisabled(true)
   }
   else{
-  setNextDisabled(false)
+    setNextDisabled(false)
   }
 
   if(answers.length === 0) setNextDisabled(true) //блочим кнопку далее, если не выбран ни 1 вариант ответа
 
   if(checkingAnswerFetch){ //блочим кнопки, если идет идет проверка ответов на вопрос
-  setNextDisabled(true);
-  setPrevDisabled(true)
+    setNextDisabled(true);
+    setPrevDisabled(true)
   }
   else{
-  setNextDisabled(false);
-  setPrevDisabled(false)
+    setNextDisabled(false);
+    setPrevDisabled(false)
   }
+```
 
 - После нажатия кнопки далее, происходит resetState() и подгрузка нового вопроса
 
