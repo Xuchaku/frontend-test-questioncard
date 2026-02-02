@@ -10,7 +10,7 @@
 
 - где хранится selectedAnswer(в компоненте QuestionCard, также после выбора он сохраняется и в localstorage)
 - где хранится isChecked(в компоненте контрола CheckboxOptionQuestion или RadioOptionQuestion)
-- что сбрасывается при смене questionId (QuestionCard состояние и все дочерние)
+- что сбрасывается при смене questionId (QuestionCard состояние)
 - что будет, если пользователь кликает очень быстро(может произойти ситуация что данные для предыдущего вопроса прийту позже чем для последующего, что приведет к тому что на например на 6 вопрос будут отрендерны данные с 5 вопроса)
 
 ## Псевдокод логики
@@ -55,7 +55,7 @@
 
   if(answers.length === 0) setNextDisabled(true) //блочим кнопку далее, если не выбран ни 1 вариант ответа
 
-  if(checkingAnswerFetch){ //блочи кнопки, если идет идет проверка ответов на вопрос
+  if(checkingAnswerFetch){ //блочим кнопки, если идет идет проверка ответов на вопрос
   setNextDisabled(true);
   setPrevDisabled(true)
   }
@@ -63,6 +63,8 @@
   setNextDisabled(false);
   setPrevDisabled(false)
   }
+
+- После нажатия кнопки далее, происходит resetState() и подгрузка нового вопроса
 
 ## Edge cases и UX
 
